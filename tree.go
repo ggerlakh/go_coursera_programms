@@ -31,19 +31,10 @@ func printTree(out io.Writer, sl []string, path string) error {
 		m[filepath.Dir(sl[idx])] = append(m[filepath.Dir(sl[idx])], sl[idx])
 	}
 	for i := range sl {
-		level := strings.Count(sl[i], "/")
-		if level == 0 {
-			if sl[i] == m[filepath.Dir(sl[i])][len(m[filepath.Dir(sl[i])]) - 1] {
-				fmt.Fprintln(out, getTab(path, sl[i], m) + last + filepath.Base(sl[i]))
-			} else {
-				fmt.Fprintln(out, getTab(path, sl[i], m) + graphic + filepath.Base(sl[i]))
-			}
-		} else if level > 0 {
-			if sl[i] == m[filepath.Dir(sl[i])][len(m[filepath.Dir(sl[i])]) - 1] {
-				fmt.Fprintln(out, getTab(path, sl[i], m) + last + filepath.Base(sl[i]))
-			} else {
-				fmt.Fprintln(out, getTab(path, sl[i], m) + graphic + filepath.Base(sl[i]))
-			}
+		if sl[i] == m[filepath.Dir(sl[i])][len(m[filepath.Dir(sl[i])]) - 1] {
+			fmt.Fprintln(out, getTab(path, sl[i], m) + last + filepath.Base(sl[i]))
+		} else {
+			fmt.Fprintln(out, getTab(path, sl[i], m) + graphic + filepath.Base(sl[i]))
 		}
 	}
 	return nil
